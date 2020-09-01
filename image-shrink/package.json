@@ -1,0 +1,14 @@
+{
+  "name": "image-shrink",
+  "version": "1.0.0",
+  "description": "App to optomize images",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Matthew Doles",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^10.1.1"
+  }
+}
