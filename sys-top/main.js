@@ -56,6 +56,14 @@ app.on('ready', () => {
   const mainMenu = Menu.buildFromTemplate(menu);
   Menu.setApplicationMenu(mainMenu);
 
+  mainWindow.on('close', (e) => {
+    if (!app.isQuitting) {
+      e.preventDefault();
+      mainWindow.hide();
+    }
+    return true;
+  });
+
   const icon = path.join(__dirname, 'assets', 'icons', 'tray_icon.png');
   tray = new Tray(icon);
   tray.on('click', () => {
@@ -65,12 +73,33 @@ app.on('ready', () => {
       mainWindow.show();
     }
   });
+  tray.on('right-click', () => {
+    const contextMenu = Menu.buildFromTemplate([
+      {
+        label: 'Quit',
+        click: () => {
+          app.isQuitting = true;
+          app.quit();
+        },
+      },
+    ]);
+    tray.popUpContextMenu(contextMenu);
+  });
 });
 
 const menu = [
   ...(isMac ? [{ role: 'appMenu' }] : []),
   {
     role: 'fileMenu',
+  },
+  {
+    label: 'View',
+    submenu: [
+      {
+        label: 'Toggle Nav',
+        click: () => mainWindow.webContents.send('nav:toggle'),
+      },
+    ],
   },
   ...(isDev
     ? [
