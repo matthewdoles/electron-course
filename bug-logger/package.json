@@ -18,7 +18,7 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js --mode development",
     "build": "cross-env NODE_ENV=production webpack --config webpack.build.config.js --mode production",
     "package": "npm run build",
-    "postpackage": "electron-packager ./ --out=./release-builds"
+    "postpackage": "electron-packager ./ --out=./release-builds --overwrite --platform=win32 --arch=x64 --icon=assets/icon.ico"
   },
   "dependencies": {
     "bootstrap": "^4.5.2",
@@ -39,7 +39,7 @@
     "css-loader": "^3.5.3",
     "electron": "^8.2.5",
     "electron-devtools-installer": "^3.0.0",
-    "electron-packager": "^14.2.1",
+    "electron-packager": "^15.1.0",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "^0.9.0",
