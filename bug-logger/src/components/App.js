@@ -28,18 +28,22 @@ const App = () => {
       showAlert('Please enter all fields', 'danger');
       return;
     }
-    item._id = new Date().toString();
-    item.created = new Date().toString();
-    setLogs([...logs, item]);
+    // item._id = new Date().toString();
+    // item.created = new Date().toString();
+    // setLogs([...logs, item]);
+
+    ipcRenderer.send('logs:add', item);
     showAlert('Log added');
   }
 
   function deleteItem(_id) {
-    setLogs(logs.filter((item) => item._id !== _id));
+    //setLogs(logs.filter((item) => item._id !== _id));
+
+    ipcRenderer.send('logs:delete', _id);
     showAlert('Log removed');
   }
 
-  function showAlert(message, variant = 'success', seconds = 30000) {
+  function showAlert(message, variant = 'success', seconds = 3000) {
     setAlert({
       show: true,
       message,
